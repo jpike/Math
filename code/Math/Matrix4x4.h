@@ -33,6 +33,7 @@ namespace MATH
         static Matrix4x4 RotateX(const typename Angle<ElementType>::Radians angle_in_radians);
         static Matrix4x4 RotateY(const typename Angle<ElementType>::Radians angle_in_radians);
         static Matrix4x4 RotateZ(const typename Angle<ElementType>::Radians angle_in_radians);
+        static Matrix4x4 Rotation(const typename Vector3< typename Angle<ElementType>::Radians >& angles_in_radians);
 
         // OPERATORS.
         Matrix4x4 operator* (const Matrix4x4& rhs) const;
@@ -186,6 +187,20 @@ namespace MATH
         // RETURN THE MATRIX.
         Matrix4x4<ElementType> rotation_matrix;
         rotation_matrix.Elements = rotation_elements;
+        return rotation_matrix;
+    }
+
+    /// Creates a rotation matrix about the 3 primary axes.
+    /// @param[in]  angles_in_radians - The rotation angles across the 3 primary axes.
+    /// @return The specified rotation matrix about the primary axes.
+    template <typename ElementType>
+    Matrix4x4<ElementType> Matrix4x4<ElementType>::Rotation(const typename Vector3< typename Angle<ElementType>::Radians >& angles_in_radians)
+    {
+        MATH::Matrix4x4<ElementType> x_rotation_matrix = RotateX(angles_in_radians.X);
+        MATH::Matrix4x4<ElementType> y_rotation_matrix = RotateY(angles_in_radians.Y);
+        MATH::Matrix4x4<ElementType> z_rotation_matrix = RotateZ(angles_in_radians.Z);
+
+        MATH::Matrix4x4<ElementType> rotation_matrix = x_rotation_matrix * y_rotation_matrix * z_rotation_matrix;
         return rotation_matrix;
     }
 

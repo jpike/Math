@@ -21,9 +21,9 @@ namespace MATH
 
         // CONSTRUCTION.
         explicit Vector3(
-            const ComponentType x = 0, 
-            const ComponentType y = 0,
-            const ComponentType z = 0);
+            const ComponentType x = static_cast<ComponentType>(0), 
+            const ComponentType y = static_cast<ComponentType>(0),
+            const ComponentType z = static_cast<ComponentType>(0));
 
         // OPERATORS.
         bool operator== (const Vector3& rhs) const;
